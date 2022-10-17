@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Eshop Tshirt </title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <script>
+        function openPopup(id){
+            let confirmAction = confirm("Are you sure to delete this tshirt?");
+            if (confirmAction) {
+              window.location = '/deleteTshirt/'+id;
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container my-2">
+    <h1>Order List</h1>
+    <a th:href="@{/showNewOrderForm}" class="btn btn-primary btn-sm mb-3"> Create Order </a>
+    <a th:href="@{/showNewTshirtForm}" class="btn btn-primary btn-sm mb-3"> Add Tshirt </a>
+    <table border="1" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Order customer</th>
+            <th>Order quantity</th>
+            <th>Order T-shirt name</th>
+            <th style="width:16.50%"> Actions </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order:${listOrders}">
+            <td th:text="${order.customerName}"></td>
+            <td th:text="${order.quantity}"></td>
+            <td th:text="${order.tshirt.brand}"></td>
+            <td><a th:href="@{/showFormForUpdate/{id}(id=${order.id})}" class="btn btn-primary">Update</a>
+                <a class="btn btn-danger" th:attr="onclick=|openPopup('${order.id}')|">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
